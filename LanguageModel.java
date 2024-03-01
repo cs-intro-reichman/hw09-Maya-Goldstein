@@ -85,7 +85,7 @@ public class LanguageModel {
         for (int j = 0; j < probs.getSize(); j++) {
             CharData prevCd = (j == 0) ? null : probs.listIterator(j - 1).current.cp;
             CharData currentCd = probs.listIterator(j).current.cp;
-            currentCd.p = (double) (currentCd.count / n);
+            currentCd.p = (double) currentCd.count / n;
            if (j == 0) {
             currentCd.cp = currentCd.p;
            } 
@@ -99,8 +99,9 @@ public class LanguageModel {
 	public char getRandomChar(List probs) {
 		double r = randomGenerator.nextDouble();
         int i = 0;
-
-        while (probs.listIterator(i).current.cp.cp < r) {
+        
+        while (probs.listIterator(i).current.cp.cp < r && i < probs.getSize()) {
+            System.out.println(probs.listIterator(i).current);
             i++;
         }
         return probs.get(i).chr;
@@ -148,7 +149,8 @@ public class LanguageModel {
 	}
 
     public static void main(String[] args) {
-        int windowLength = Integer.parseInt(args[0]);
+        
+       int windowLength = Integer.parseInt(args[0]);
         String initialText = args[1];
         int generatedTextLength = Integer.parseInt(args[2]);
         Boolean randomGeneration = args[3].equals("random");
@@ -163,6 +165,20 @@ public class LanguageModel {
         lm.train(fileName);
         // Generates text, and prints it.
         System.out.println(lm.generate(initialText, generatedTextLength));
+        
+        
+        
+       /*
+       List q = new List();
+        q.addFirst('e'); q.addFirst('m'); q.addFirst('o'); q.addFirst('c'); 
+        LanguageModel lm = new LanguageModel(2); 
+        for (int i = 0; i < q.getSize(); i++) {
+            System.out.println(q.listIterator(i).current);
+        } 
+        lm.calculateProbabilities(q);
+        System.out.println(q);
+        */ 
+         
         
 
     }

@@ -4,19 +4,6 @@
  *  the class represents a list of CharData objects. Likwise, the API of the class does not
  *  mention the existence of the Node objects). */
 public class List {
-    public static void main(String[] args) {
-		List q = new List();
-        q.addFirst(' '); q.addFirst('e'); q.addFirst('t'); q.addFirst('i');  q.addFirst('m'); q.addFirst('o'); q.addFirst('c'); 
-        q.get(2).count++; q.get(4).count++; q.get(5).count++;
-        System.out.println(q);
-        //for (int i = 0; i < q.getSize(); i++) {
-            //System.out.println(q.get(i));
-       // }
-       //System.out.println(q.get(7));
-       System.out.println(q.getSize());
-            
-
-    }
 
     // Points to the first node in this list
     private Node first;
