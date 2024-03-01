@@ -39,10 +39,8 @@ public class LanguageModel {
         In in = new In(fileName);
         
         // Reads just enough characters to form the first window
-        int i = 0;
-        while (i < windowLength) {
+        for (int i = 0; i < windowLength; i++) {
             window+=in.readChar();
-            i++;
         }
 
         // Processes the entire text, one character at a time
@@ -101,8 +99,8 @@ public class LanguageModel {
 	public char getRandomChar(List probs) {
 		double r = randomGenerator.nextDouble();
         int i = 0;
-        CharData currentCd = probs.listIterator(i).current.cp;
-        while (currentCd.cp < r) {
+
+        while (probs.listIterator(i).current.cp.cp < r) {
             i++;
         }
         return probs.get(i).chr;
@@ -126,7 +124,7 @@ public class LanguageModel {
             
         String window = initialText.substring(initialText.length() - windowLength);
         String generatedText = window;
-        while (generatedText.length() < textLength) {
+        while (generatedText.length() < (textLength + windowLength)) {
             List probs = CharDataMap.get(window);
             if (probs == null) {
                 break;
