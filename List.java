@@ -70,12 +70,12 @@ public class List {
         Node current = first;
         int index = 0;
 
-        while (current.next != null) {
-            if (current.cp.chr == chr) {
+        while (current != null) {
+            if (current.cp.equals(chr)) {
                 return index;
             }
-            index++;
             current = current.next;
+            index++; 
         }
         return -1;//if value is not found
     }
