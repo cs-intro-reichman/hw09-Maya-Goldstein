@@ -79,12 +79,9 @@ public class LanguageModel {
 	// characters in the given list. */
 	public void calculateProbabilities(List probs) {
         // first we count how many characters are in the list				
-		ListIterator itr = probs.listIterator(0);
         int n = 0;
-        int i = 0;
-        while (itr.hasNext() && i < probs.getSize()) {
+        for (int i = 0; i < probs.getSize(); i++) {
             n+=probs.listIterator(i).current.cp.count;
-            i++;
         }
 
         for (int j = 0; j < probs.getSize(); j++) {
@@ -103,13 +100,12 @@ public class LanguageModel {
     // Returns a random character from the given probabilities list.
 	public char getRandomChar(List probs) {
 		double r = randomGenerator.nextDouble();
-        for (int i = 0 ; i < probs.getSize(); i++) {
-            CharData currentCd = probs.listIterator(i).current.cp;
-            if (currentCd.cp >= r) {
-                return currentCd.chr;
-            }
+        int i = 0;
+        CharData currentCd = probs.listIterator(i).current.cp;
+        while (currentCd.cp < r) {
+            i++;
         }
-        return '0';//compilation requirement
+        return probs.get(i).chr;
 	}
 
     /**
